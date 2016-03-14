@@ -1,13 +1,13 @@
-#Displays info on length of functions in a Go package.
+##Get info on length of functions in a Go package.
 
-##Install
+###Install
 `go get github.com/lafolle/flen`
 
-##Usage  
+###Usage  
 `flen -pkg <pkg name>`  
 eg `flen -pkg encoding/json`
 
-##TODO:
+###TODO:
 1. Test histogram func  
 2. Better ways to show data  
 3. Also include anon funcs  

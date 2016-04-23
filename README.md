@@ -3,13 +3,24 @@
 Given package is searched in  directories provided by envs in following order:  
 1. GOPATH  
 2. GOROOT  
-AST is generated only for Go files present in package path, ie, `flen -pkg crypto` shall only parse `crypto.go`. For parsing `sha1`, full package path needs to be provided, ie `flen -pkg crypto/sha1`.
+AST is generated only for Go files present in package path, ie, `flen crypto` shall only parse `crypto.go`. For parsing `sha1`, full package path needs to be provided, ie `flen crypto/sha1`.
 
 ###Install
 `go get github.com/lafolle/flen`
 
 ###Usage  
-####Simple usage 
+###Simple Usage
+```
+Usage: flen <pkg> [options]
+  -bs int
+        bucket size (natural number) (default 5)
+  -l int
+        min length (inclusive)
+  -t    include tests files
+  -u int
+        max length (exclusive) (default 1000000)	
+```
+###Example usage  
 ```
 $ flen strings
 Full path of pkg:  /usr/local/go/src/strings

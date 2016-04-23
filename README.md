@@ -3,7 +3,7 @@
 Given package is searched in  directories provided by envs in following order: GOPATH, GOROOT. AST is generated only for Go source files present in package path, ie, `flen crypto` shall only parse `crypto.go`. For parsing `crypto/sha1`, full package path needs to be provided, ie `flen crypto/sha1`.
 
 ###Install
-`go get github.com/lafolle/flen`
+`go get github.com/lafolle/flen/cmd/flen`
 
 ###Usage
 ```

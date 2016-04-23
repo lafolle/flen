@@ -34,6 +34,4 @@ Externally implemented funcs
 [56-61) -       ∎
 [61-66) -
 $
-
-If not pkg is provided, flen will consider cwd to be a pkg, and shall give results for it.
 ```  

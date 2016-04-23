@@ -12,6 +12,7 @@ var (
 	bucketSize                   int
 	inclTests                    bool
 	lenLowerLimit, lenUpperLimit int
+	max int
 )
 
 // init sets clas and flag package.
@@ -20,6 +21,7 @@ func init() {
 	flag.IntVar(&bucketSize, "bs", 5, "bucket size (natural number)")
 	flag.IntVar(&lenLowerLimit, "l", 0, "min length (inclusive)")
 	flag.IntVar(&lenUpperLimit, "u", flen.Sentinel, "max length (exclusive)")
+	flag.IntVar(&max, "m", 0, "error if any function longer than m")
 	flag.Usage = func() {
 		fmt.Fprint(os.Stderr, "Usage: flen <pkg> [options]\n")
 		flag.PrintDefaults()
@@ -52,6 +54,14 @@ func main() {
 		return
 	}
 
+	if max > 0 {
+		for _, y := range flens {
+			if y.Size > max {
+				fmt.Printf("Function %s exceeds limit %d: %d", y.Name, max, y.Size)
+				os.Exit(-1) 
+			}
+		}
+	}
 	if rangeAsked(lenLowerLimit, lenUpperLimit) {
 		zeroLenFuncs := flens.GetZeroLenFuncs()
 		if len(zeroLenFuncs) > 0 {

@@ -211,7 +211,7 @@ func TestGenerateFuncLens(t *testing.T) {
 	// TODO: Add test cases.
 	}
 	for _, tt := range tests {
-		got, err := GenerateFuncLens(tt.pkg, tt.options)
+		got, _, err := GenerateFuncLens(tt.pkg, tt.options)
 		if (err != nil) != tt.wantErr {
 			t.Errorf("%q. GenerateFuncLens() error = %v, wantErr %v", tt.name, err, tt.wantErr)
 			continue

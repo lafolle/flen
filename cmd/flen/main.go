@@ -28,6 +28,8 @@ func init() {
 	}
 }
 
+func rangeAsked(ll, ul int) bool { return ll != 0 || ul != flen.Sentinel }
+
 func main() {
 
 	flag.Parse()
@@ -48,11 +50,12 @@ func main() {
 		IncludeTests: inclTests,
 		BucketSize:   bucketSize,
 	}
-	flens, err := flen.GenerateFuncLens(pkg, flenOptions)
+	flens, pkgpath, err := flen.GenerateFuncLens(pkg, flenOptions)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+	fmt.Printf("Full pkg path: %s\n\n", pkgpath)
 
 	if max > 0 {
 		for _, y := range flens {
@@ -67,25 +70,25 @@ func main() {
 		if len(zeroLenFuncs) > 0 {
 			fmt.Println("0 len funcs")
 			zeroLenFuncs.Print()
+			fmt.Println()
 		}
 
 		extImplFuncs := flens.GetExternallyImplementedFuncs()
 		if len(extImplFuncs) > 0 {
 			fmt.Println("Externally implemented funcs")
 			extImplFuncs.Print()
+			fmt.Println()
 		}
 	} else {
 		rangeFlens := flens.Query(lenLowerLimit, lenUpperLimit)
 		if len(rangeFlens) > 0 {
 			fmt.Printf("Functions with length in range [%d, %d)\n", lenLowerLimit, lenUpperLimit)
 			rangeFlens.Print()
+			fmt.Println()
 		}
 	}
+	fmt.Println("Histogram")
 	flens.DisplayHistogram()
 
 	os.Exit(0)
-}
-
-func rangeAsked(ll, ul int) bool {
-	return ll != 0 || ul != flen.Sentinel
 }

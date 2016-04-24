@@ -173,7 +173,7 @@ func (flens *FuncLens) DisplayHistogram() {
 	)
 	tabw := new(tabwriter.Writer)
 	tabw.Init(os.Stdout, 0, 4, 0, '\t', 0)
-	fmt.Fprintln(tabw)
+	fmt.Fprint(tabw)
 	for i := 0; i < hglen; i++ {
 		bucketrange := fmt.Sprintf("[%d-%d)", start, start+opts.BucketSize)
 		streak = ""
@@ -206,7 +206,7 @@ func (flens *FuncLens) ComputePercentiles() {
 // GenerateFuncLens generates FuncLens for the given package. If options.InclTests is true,
 // functions in tests are also evaluated. For ease in readibility of func lens in table,
 // result is sorted.
-func GenerateFuncLens(pkg string, options *Options) (FuncLens, error) {
+func GenerateFuncLens(pkg string, options *Options) (FuncLens, string, error) {
 	opts = options
 	if opts == nil {
 		opts = &Options{
@@ -216,9 +216,8 @@ func GenerateFuncLens(pkg string, options *Options) (FuncLens, error) {
 	}
 	pkgpath, err := getPkgPath(pkg)
 	if err != nil {
-		return nil, err
+		return nil, pkgpath, err
 	}
-	println("Full path of pkg: ", pkgpath)
 
 	fset := token.NewFileSet()
 	pkgs, ferr := parser.ParseDir(fset, pkgpath, func(f os.FileInfo) bool {
@@ -278,7 +277,7 @@ func GenerateFuncLens(pkg string, options *Options) (FuncLens, error) {
 		}
 	}
 	sort.Sort(&flens)
-	return flens, nil
+	return flens, pkgpath, nil
 }
 
 // getPkgPath tries to get path of pkg. Path is platform dependent.

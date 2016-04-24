@@ -12,7 +12,7 @@ var (
 	bucketSize                   int
 	inclTests                    bool
 	lenLowerLimit, lenUpperLimit int
-	max int
+	max                          int
 )
 
 // init sets clas and flag package.
@@ -58,11 +58,11 @@ func main() {
 		for _, y := range flens {
 			if y.Size > max {
 				fmt.Printf("Function %s exceeds limit %d: %d", y.Name, max, y.Size)
-				os.Exit(-1) 
+				os.Exit(-1)
 			}
 		}
 	}
-	if rangeAsked(lenLowerLimit, lenUpperLimit) {
+	if !rangeAsked(lenLowerLimit, lenUpperLimit) {
 		zeroLenFuncs := flens.GetZeroLenFuncs()
 		if len(zeroLenFuncs) > 0 {
 			fmt.Println("0 len funcs")
@@ -74,7 +74,6 @@ func main() {
 			fmt.Println("Externally implemented funcs")
 			extImplFuncs.Print()
 		}
-		flens.DisplayHistogram()
 	} else {
 		rangeFlens := flens.Query(lenLowerLimit, lenUpperLimit)
 		if len(rangeFlens) > 0 {
@@ -82,6 +81,7 @@ func main() {
 			rangeFlens.Print()
 		}
 	}
+	flens.DisplayHistogram()
 
 	os.Exit(0)
 }

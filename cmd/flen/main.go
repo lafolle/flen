@@ -23,7 +23,7 @@ func init() {
 	flag.IntVar(&lenUpperLimit, "u", flen.Sentinel, "max length (exclusive)")
 	flag.IntVar(&max, "m", 0, "error if any function longer than m")
 	flag.Usage = func() {
-		fmt.Fprint(os.Stderr, "Usage: flen <pkg> [options]\n")
+		fmt.Fprint(os.Stderr, "Usage: flen [options] <pkg>\n")
 		flag.PrintDefaults()
 	}
 }

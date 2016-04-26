@@ -173,7 +173,7 @@ func (flens *FuncLens) DisplayHistogram() {
 	)
 	tabw := new(tabwriter.Writer)
 	tabw.Init(os.Stdout, 0, 4, 0, '\t', 0)
-	fmt.Fprint(tabw)
+	fmt.Fprint(tabw, "")
 	for i := 0; i < hglen; i++ {
 		bucketrange := fmt.Sprintf("[%d-%d)", start, start+opts.BucketSize)
 		streak = ""

@@ -88,7 +88,7 @@ func main() {
 		}
 	}
 	fmt.Println("Histogram")
-	flens.DisplayHistogram()
-
-	os.Exit(0)
+	if err := flens.DisplayHistogram(); err != nil {
+		fmt.Println("failed to display histogram: ", err)
+	}
 }

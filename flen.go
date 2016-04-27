@@ -164,7 +164,7 @@ func (flens *FuncLens) GetExternallyImplementedFuncs() FuncLens {
 }
 
 // Display histogram data points
-func (flens *FuncLens) DisplayHistogram() {
+func (flens *FuncLens) DisplayHistogram() error {
 	var (
 		start  int   = 1
 		hg     []int = flens.computeHistogram()
@@ -183,9 +183,7 @@ func (flens *FuncLens) DisplayHistogram() {
 		fmt.Fprintln(tabw, fmt.Sprintf("%s\t-\t%s", bucketrange, streak))
 		start += opts.BucketSize
 	}
-	if err := tabw.Flush(); err != nil {
-
-	}
+	return tabw.Flush()
 }
 
 // Stats generate statstics on length of functions in a package.
@@ -242,8 +240,7 @@ func GenerateFuncLens(pkg string, options *Options) (FuncLens, string, error) {
 						ftype    funcType
 					)
 
-					switch x := node.(type) {
-					case *ast.FuncDecl:
+					if x, ok := node.(*ast.FuncDecl); ok {
 						ftype = implemented
 						funcname = x.Name.Name
 						if x.Body == nil {

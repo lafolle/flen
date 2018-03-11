@@ -5,7 +5,7 @@ Given package is searched in  directories provided by envs in following order: G
 ### Install
 `go get github.com/lafolle/flen/cmd/flen`
 
-###Usage
+### Usage
 ```
 Usage: flen [options] <pkg>
   -bs int

@@ -1,8 +1,8 @@
-##Get info on length of functions in a Go package.
+## Get info on length of functions in a Go package.
 
 Given package is searched in  directories provided by envs in following order: GOPATH, GOROOT. AST is generated only for Go source files present in package path, ie, `flen crypto` shall only parse `crypto.go`. For parsing `crypto/sha1`, full package path needs to be provided, ie `flen crypto/sha1`. For externally implemented functions, line number will be 0, as their is no enough information available to get their line numbers.
 
-###Install
+### Install
 `go get github.com/lafolle/flen/cmd/flen`
 
 ###Usage
@@ -16,7 +16,7 @@ Usage: flen [options] <pkg>
   -u int
         max length (exclusive) (default 1000000)	
 ```
-###Examples
+### Examples
 Simple usage  
 ```
 $ flen strings
@@ -44,7 +44,7 @@ Externally implemented funcs
 $
 ```  
 
-###Range of lengths
+### Range of lengths
 To get all function/methods whose lengths fall in given range:   
 ```
 flen -l 16 -u 41 strings
@@ -89,7 +89,7 @@ Functions with length in range [16, 41)
 [61-66) -
 ```
 
-###Including test files
+### Including test files
 By default, test files are ignored. Enable parsing test files by `-t` flag
 ```
 $ flen -t strings

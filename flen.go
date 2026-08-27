@@ -118,11 +118,9 @@ func (flens *FuncLens) computeHistogram() []int {
 	hg = make([]int, hglen+1)
 	for _, v := range *flens {
 		if v.Size > 0 {
-			x = v.Size % opts.BucketSize
-			if x == 0 {
-				x = v.Size/opts.BucketSize - 1
-			} else {
-				x = v.Size / opts.BucketSize
+			x = v.Size / opts.BucketSize
+			if x >= hglen {
+				x = hglen - 1
 			}
 			hg[x]++
 		}
@@ -175,6 +173,9 @@ func (flens *FuncLens) DisplayHistogram() error {
 	tabw.Init(os.Stdout, 0, 4, 0, '\t', 0)
 	fmt.Fprint(tabw, "")
 	for i := 0; i < hglen; i++ {
+		if hg[i] == 0 {
+			continue
+		}
 		bucketrange := fmt.Sprintf("[%d-%d)", start, start+opts.BucketSize)
 		streak = ""
 		for j := 0; j < hg[i]; j++ {
